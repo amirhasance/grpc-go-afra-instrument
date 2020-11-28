@@ -1,0 +1,264 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package afra.instrument.v1;
+
+service Instrument {
+  rpc SearchInstrumentInfo (SearchInstrumentInfoQuery) returns (SearchInstrumentInfoResponse) {}
+  rpc GetInstrumentSnapshot (InstrumentSnapshotQuery) returns (stream InstrumentSnapshotResponse) {}
+  rpc GetInstrumentHistoricalPrice (HistoricalPriceQuery) returns (HistoricalPriceResponse) {}
+}
+
+service Index {
+  rpc GetIndexHistoricalPrice (HistoricalPriceQuery) returns (IndexHistoricalPriceResponse) {}
+}
+
+enum TimeScaleType {
+  Minute_5 = 0 ;
+  Minute_10 = 1 ;
+  Minute_15 = 2;
+  Minute_30 = 3;
+  Hour_1 = 4;
+  Hour_3 = 5;
+  Hour_6 = 6;
+  Hour_12 = 7;
+  Day_1 = 8;
+  Day_2 = 9;
+  Day_3 = 10;
+  Week_1 = 11;
+  Week_2 = 12;
+  Month_1 = 13;
+  Month_2 = 14;
+  Month_3 = 15;
+  Month_6 = 16;
+  Year_1 = 17;
+  Year_2 = 18;
+  Year_3 = 19;
+}
+
+message IndexHistoricalPriceResponse{
+  repeated IndexHistoricalPrice price_list = 1;
+}
+message HistoricalPriceResponse {
+  repeated HistoricalPrice price_list = 1;
+}
+message IndexHistoricalPrice{
+  string code = 1;
+  repeated IndexHistoricalPricePoint point_list = 2;
+}
+message HistoricalPrice{
+  string code = 1;
+  repeated HistoricalPricePoint point_list = 2;
+}
+message IndexHistoricalPricePoint{
+  string datetime = 1;
+  float index_value = 2;
+  float maximum_index_in_day = 3;
+  float minimum_index_in_day = 4;
+  float yesterday_fund_value = 5;
+  float fund_adjustment_coefficient = 6;
+  float profit_value = 7;
+}
+message HistoricalPricePoint {
+  string datetime = 1;
+  uint32 highest = 2;
+  uint32 lowest = 3;
+  uint32 open = 4;
+  uint32 close = 5;
+  uint32 average = 6;
+  string trade_volume = 7;
+}
+
+message HistoricalPriceQuery {
+  TimeScaleType time_scale = 1;
+  string start = 2;
+  string end = 3;
+  repeated string code_list = 4;
+}
+
+message InstrumentSnapshotQuery {
+  int32  refresh_interval = 1; // based on mili second . default is 10_000
+  repeated string code_list = 2;
+}
+
+message Order {
+  uint32 price = 1;
+  uint64 volume = 2;
+  uint64 count = 3;
+}
+
+message TradeReport {
+  uint64 volume = 1;
+  uint32 count = 2;
+}
+
+message InstrumentSnapshotResponse {
+  string code = 1;
+  uint32 last_traded_price = 2;
+  string last_traded_volume = 3;
+  repeated Order sell_order_list = 4;
+  repeated Order buy_order_list = 5;
+  TradeReport real_person_buyers_trade_report = 6;
+  TradeReport real_person_sellers_trade_report = 7;
+  TradeReport legal_person_buyers_trade_report = 8;
+  TradeReport legal_person_sellers_trade_report = 9;
+  InstrumentStateType current_state_type = 10;
+  float effect_on_total_index = 11;
+}
+
+message SearchInstrumentInfoQuery {
+  repeated string code_list = 1;
+  repeated Market market_list = 2;
+  ValidityType validity_type = 3;
+}
+
+message SearchInstrumentInfoResponse {
+  repeated InstrumentInfo instrument_list = 1;
+}
+
+enum Market {
+  BOURSE = 0;
+  FARA_BOURSE = 1;
+  BOURSE_KALA = 2;
+  BOURSE_ENERGY = 3;
+  BOURSE_AATI = 4;
+}
+
+enum InstrumentStateType {
+  MOJAZ = 0;
+  MAMNOE = 1;
+  MOJAZ_MASDOD = 2;
+  MOJAZ_MOTAVAGEF = 3;
+  MOJAZ_MAHFOZ = 4;
+  MAMNOE_MASDOD = 5;
+  MAMNOE_MOTAVAGEF = 6;
+  MAMNOE_MAHFOZ = 7;
+}
+
+enum BaazareVabasteType {
+  NORMAL = 0;
+  KHORDE_FOROSHI = 1;
+  JOBRANI = 2;
+  BLOKI_OMDE = 3;
+  KHARID_SHAKHES = 4;
+  PAZIROFTE_NASHODE = 5;
+}
+
+enum ValidityType {
+  ALL = 0;
+  VALID = 1;
+  DELETED_ABSOLUTE = 2;
+}
+
+enum InstrumentType {
+  SHAKHESE_GHEIMAT__SHAKHES = 0;
+  SHAKHESE__SHAKHES = 1;
+  ORAGHE_SAKOK__ORAGHE_MOSHAREKAT = 2;
+  SAHAM__SAHAME_ADI = 3;
+  SANDOGHE_SARMAYE_GOZARY_DAR_SAHAME_BOURS__SANDOGHE_SARMAYE_GOZARY = 4;
+  TESTE_PAYE__TESTE_PAYE = 5;
+  EKHTIARE_FULADE_HORMOZGAN = 6;
+  EKHTIARE_KH_AKHZA = 7;
+  EKHTIARE_F_AKHZA = 8;
+  HAGHE_TAGHADOME_SAHM__HAGHE_TAGHADOM = 9;
+  SHAKHESE_FARABOURS__SHAKHES = 10;
+  SAKOK_EKHTESASI__ORAGHE_MOSHAREKAT_0 = 11;
+  SAKOK_EKHTESASI__ORAGHE_MOSHAREKAT_1 = 12;
+  OTISI__SAHAME_ADI = 13;
+  ORAGHE_MOSHAREKATE_OTISI__ORAGHE_MOSHAREKAT = 14;
+  TASHILATE_FARABOURS__SAHAME_ADI = 15;
+  SHERKATHAYE_KOCHAKO_MOTEVASET__SAHAME_ADI = 16;
+  HAGHE_TAGHADOME_OTISI__HAGHE_TAGHADOM = 17;
+  EKHTIARE_FOROSHE_TABAYI = 18;
+  DARAYI_FEKRI__DARAYI_FEKRI = 19;
+  ORAGHE_MOSHAREKAT__ORAGHE_MOSHAREKAT = 20;
+  AATI__SAHAME_ADI = 21;
+  EKHTIARE_KHARID__SAHAME_ADI = 22;
+  EKHTIARE_FOROSH__SAHAME_ADI = 23;
+  EKHTIARE_FOROSHE_TABAYI__EKHTIAR = 24;
+  EKHTIARE_FOROSHE_TABAYI_FARABOURS__EKHTIAR = 25;
+  PAYE__SAHAME_ADI = 26;
+  HAGHE_TAGHADOME_PAYE__HAGHE_TAGHADOM = 27;
+  ORAGHE_MOSHAREKATE_ARZE_SADERATI__ORAGHE_MOSHAREKAT = 28;
+  ORAGHE_MOSHAREKATE_ENERGY__ORAGHE_MOSHAREKAT = 29;
+  SANDOGHE_SARMAYE_GOZARY_GHABELE_MOAMELEYE_ENERGY__SANDOGHE_SARMAYE_GOZARY = 30;
+  SALAF_BOURS_ENERGY_1 = 31;
+  SALAF_BOURS_ENERGY_2 = 32;
+  SALAF_BOURS_ENERGY_3 = 33;
+  SALAF_BOURS_ENERGY_4 = 34;
+  ENERGY_1 = 35;
+  ENERGY_2 = 36;
+  ORAGHE_MOSHAREKATE_KALA__ORAGHE_MOSHAREKAT = 37;
+  GOVAHIE_SEPORDEYE_KALAEI__KALA = 38;
+  JAYEZEYE_SAHM = 39;
+  SABADE_GHABELE_MOAMELE_DAR_BOURS = 40;
+  GOVAHIE_KHARIDE_SAHM = 41;
+  SABADE_MOSHAEE = 42;
+  UNKNOWN_402 = 43;
+  UNKNOWN_805 = 44;
+  UNKNOWN_401 = 45;
+  UNKNOWN_605 = 46;
+  UNKNOWN_310 = 47;
+  UNKNOWN_380 = 48;
+  UNKNOWN_320 = 49;
+  UNKNOWN_201 = 50;
+}
+
+message InstrumentInfo {
+  string code = 1;
+  string last_active_date = 2;
+  string tse_id = 3;
+  string latin_code = 4;
+  string latin_name = 5;
+  string persian_code = 6;
+  string persian_name = 7;
+  uint32 par_value = 8; // gheimat esmi
+  uint64 shares_count = 9;
+  string first_trade_date = 10;
+  Market market = 11;
+  string sector_id = 12;
+  string sub_sector_id = 13;
+  uint32 maximum_allowed_price = 14;
+  uint32 minimum_allowed_price = 15;
+  uint64 base_share_volume = 16;
+  uint32 tick = 17;
+  uint32 minimum_shares_number = 18;
+  string company_isin = 19;
+  string company_latin_code = 20;
+  string company_persian_name = 21;
+  uint32 yesterday_price = 22;
+  string yesterday_traded_volume = 23;
+  uint32 today_opening_price = 24;
+  uint32 today_closing_price = 25;
+  float price_to_earning = 26;
+  float group_price_to_earning = 27;
+  uint32  earning_per_share = 28;
+  uint64  market_value = 29;
+  string last_state_change_date = 30;
+  BaazareVabasteType baazar_vabaste_type = 31;
+  ValidityType validity_type = 32;
+  InstrumentType instrument_type = 33;
+  uint32 last_traded_price = 34;
+  string last_traded_volume = 35;
+  repeated Order sell_order_list = 36;
+  repeated Order buy_order_list = 37;
+  TradeReport real_person_buyers_trade_report = 38;
+  TradeReport real_person_sellers_trade_report = 39;
+  TradeReport legal_person_buyers_trade_report = 40;
+  TradeReport legal_person_sellers_trade_report = 41;
+  InstrumentStateType current_state_type = 42;
+  float effect_on_total_index = 43;
+}
