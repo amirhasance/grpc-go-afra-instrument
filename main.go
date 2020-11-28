@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	af "grpcPanel/afra_instrument_v1"
+)
 
 func main() {
-	fmt.Print("This is main func ")
+
+	//af.GetWithCodeList([]string{"8516759016718718", "13082825954602280", "48711126865295010"})
+	af.GetWithMarketCode(3)
 }
