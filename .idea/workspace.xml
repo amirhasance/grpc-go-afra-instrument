@@ -20,8 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee9e2132-cba5-4693-9f35-677d9c3d72b2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/afra_instrument_v1/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/afra_instrument_v1/server.go" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/pubsub/pubsub.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pubsub/subscriber.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/afra_instrument_v1/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/afra_instrument_v1/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpcPanel" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +35,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTTP Request" />
         <option value="Go File" />
       </list>
     </option>
@@ -94,52 +98,57 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606551267981">
+    <state x="451" y="210" width="1084" height="729" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606648410442">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1606551267981" />
+    <state x="451" y="210" width="1084" height="729" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1606648410442" />
+    <state x="689" y="354" width="599" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606638889283">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="689" y="354" width="599" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1606638889283" />
     <state width="923" height="506" key="DebuggerActiveHint" timestamp="1606552225645">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="923" height="506" key="DebuggerActiveHint/67.27.1853.1053@67.27.1853.1053" timestamp="1606552225645" />
-    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1606551262694">
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1606648405477">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1606551262694" />
-    <state width="1807" height="119" key="GridCell.Tab.0.bottom" timestamp="1606576410804">
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1606648405477" />
+    <state width="1807" height="222" key="GridCell.Tab.0.bottom" timestamp="1606653264417">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="119" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1606576410804" />
-    <state width="1807" height="119" key="GridCell.Tab.0.center" timestamp="1606576410803">
+    <state width="1807" height="222" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1606653264417" />
+    <state width="1807" height="222" key="GridCell.Tab.0.center" timestamp="1606653264416">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="119" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1606576410803" />
-    <state width="1807" height="119" key="GridCell.Tab.0.left" timestamp="1606576410803">
+    <state width="1807" height="222" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1606653264416" />
+    <state width="1807" height="222" key="GridCell.Tab.0.left" timestamp="1606653264416">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="119" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1606576410803" />
-    <state width="1807" height="119" key="GridCell.Tab.0.right" timestamp="1606576410804">
+    <state width="1807" height="222" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1606653264416" />
+    <state width="1807" height="222" key="GridCell.Tab.0.right" timestamp="1606653264416">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="119" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1606576410804" />
-    <state width="1807" height="292" key="GridCell.Tab.1.bottom" timestamp="1606564940217">
+    <state width="1807" height="222" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1606653264416" />
+    <state width="974" height="331" key="GridCell.Tab.1.bottom" timestamp="1606652986073">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1606564940217" />
-    <state width="1807" height="292" key="GridCell.Tab.1.center" timestamp="1606564940217">
+    <state width="974" height="331" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1606652986073" />
+    <state width="974" height="331" key="GridCell.Tab.1.center" timestamp="1606652986073">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1606564940217" />
-    <state width="1807" height="292" key="GridCell.Tab.1.left" timestamp="1606564940216">
+    <state width="974" height="331" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1606652986073" />
+    <state width="974" height="331" key="GridCell.Tab.1.left" timestamp="1606652986073">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1606564940216" />
-    <state width="1807" height="292" key="GridCell.Tab.1.right" timestamp="1606564940217">
+    <state width="974" height="331" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1606652986073" />
+    <state width="974" height="331" key="GridCell.Tab.1.right" timestamp="1606652986073">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1606564940217" />
+    <state width="974" height="331" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1606652986073" />
     <state x="482" y="187" key="SettingsEditor" timestamp="1606545961830">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -156,6 +165,16 @@
           <url>file://$PROJECT_DIR$/../google.golang.org/grpc/rpc_util.go</url>
           <line>184</line>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main.go</url>
+          <line>60</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main.go</url>
+          <line>52</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
