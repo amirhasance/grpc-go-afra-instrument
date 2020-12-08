@@ -14,7 +14,7 @@
 
 syntax = "proto3";
 
-package afra.instrument.v1;
+package panelServer;
 
 service Instrument {
   rpc SearchInstrumentInfo (SearchInstrumentInfoQuery) returns (SearchInstrumentInfoResponse) {}
